@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+.pnp
+yarn.lock
+yarn.lock
+
+# Production dependencies
+.next/
+
+# Environment variables
+.env
+
+# Vercel
+.vercel
+
+# Accelerator
+.turbonxt
+
+# Coverage instruments
+coverage/
+
+# Temp and cache
+*.tmp
+*.cache
+
+# sourcemaps
+*.map
+
+# Debug
+debug.log
+
+# Vercel output
+#vercel-inspect
