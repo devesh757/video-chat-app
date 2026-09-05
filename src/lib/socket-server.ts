@@ -9,6 +9,7 @@ import {
   type ServerToClientEvents,
   type SocketData,
 } from "./socket-events";
+
 import {
   createSession,
   destroySession,
@@ -51,6 +52,20 @@ export function attachSocketServer(httpServer: HttpServer): SignalingServer {
   const ready = resetAllSessions().catch((err) => {
     console.error("[signaling] failed to reset stale sessions", err);
   });
+
+  const ALLOWED_ORIGINS = [
+  "http://localhost:3000",
+  "https://video-chat-app-gold.vercel.app" // Insert your live Vercel production URL here
+];
+
+const io = new Server(server, {
+  cors: {
+    origin: ALLOWED_ORIGINS,
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+  transports: ["websocket"] // Forces clean WebSocket initialization upgrades
+});
 
   // Serialize ALL matching operations so that concurrent findMatch calls
   // cannot deadlock (both lock their own rows, skip each other's candidate,
